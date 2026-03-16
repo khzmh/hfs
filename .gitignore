@@ -72,3 +72,13 @@ testsprite_tests/auth_helper.py
 /tmp/
 *.lock
 *.log
+
+# Backups (database dumps, schema backups, etc)
+/backups/
+backups/
+*.backup
+*.bak
+
+# Prisma backups
+prisma/schema.backup*.prisma
+prisma/migrations.backup/
