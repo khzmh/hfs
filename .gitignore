@@ -1,0 +1,74 @@
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# dependencies
+/node_modules
+/.pnp
+.pnp.*
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/versions
+
+# testing
+/coverage
+
+# Ralph TUI — hanya ignore iterations/logs/reports, bukan config
+.ralph-tui/iterations/
+.ralph-tui/worktrees/
+.ralph-tui/reports/
+.ralph-tui/session-meta.json
+
+# Agent tool folders (tidak perlu di-commit)
+.gemini/
+
+# next.js
+/.next/
+/out/
+
+# production
+/build
+
+# misc
+.DS_Store
+*.pem
+
+# debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# env files (can opt-in for committing if needed)
+.env*
+
+# vercel
+.vercel
+
+# typescript
+*.tsbuildinfo
+next-env.d.ts
+
+# images (screenshots, review images — bukan asset production)
+*.png
+*.jpg
+*.jpeg
+screenshots/
+
+# AI tool config files (opencode, cursor, etc)
+opencode.json
+AGENTS.md
+.opencode/
+
+# TestSprite E2E test files (auto-generated, tidak perlu di version control)
+testsprite_tests/tmp/
+testsprite_tests/*.py
+testsprite_tests/auth_helper.py
+.testsprite/
+.kiro/
+
+
+# Temporary files
+/tmp/
+*.lock
+*.log
