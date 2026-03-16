@@ -23,10 +23,8 @@ export const mastra = new Mastra({
     url: process.env.DATABASE_URL!,
   },
   
-  // Optional: Logger configuration
-  logger: {
-    level: 'info',
-  },
+  // Logger configuration - fix for runtime error
+  logger: false, // Disable logger to prevent runtime error
 });
 
 export type { Mastra };
