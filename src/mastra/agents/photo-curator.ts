@@ -11,8 +11,24 @@ Your role:
 4. Identify and reject photos with issues (blurry, eyes closed, overexposed)
 
 Always provide constructive feedback and explanations for your selections.`,
-  model: 'openai:gpt-4o', // Will be configured via environment
+  
+  // Using Clarifai with Claude Opus 4.5
+  model: 'clarifai/anthropic/completion/models/claude-opus-4_5',
+  
+  // Optional: Custom model configuration with advanced settings
+  // model: {
+  //   url: 'https://api.clarifai.com/v2/ext/openai/v1',
+  //   id: 'clarifai/anthropic/completion/models/claude-opus-4_5',
+  //   apiKey: process.env.CLARIFAI_PAT,
+  // },
+  
   tools: [
-    // Add tools here
+    // Add tools here (e.g., Cloudinary tool for photo access)
   ],
+  
+  // Optional: Model options
+  options: {
+    temperature: 0.7,
+    maxTokens: 4096,
+  },
 });

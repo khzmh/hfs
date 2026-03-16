@@ -26,21 +26,25 @@ Copy `.env.example` to `.env` and fill in your API keys:
 cp .env.example .env
 ```
 
-Required variables:
+Required variables for **Clarifai with Claude Opus 4.5**:
 ```env
 # Database (already configured)
 DATABASE_URL='postgresql://...'
 
-# AI Provider (choose one)
-OPENAI_API_KEY=sk-...        # Recommended for GPT-4o
-# OR
-ANTHROPIC_API_KEY=sk-ant-...  # For Claude models
+# Clarifai API (Recommended - Claude Opus 4.5)
+CLARIFAI_PAT=your-personal-access-token-here
 
 # Cloudinary (already configured)
 CLOUDINARY_CLOUD_NAME=
 CLOUDINARY_API_KEY=
 CLOUDINARY_API_SECRET=
 ```
+
+**Getting Clarifai API Key:**
+1. Login to https://clarifai.com
+2. Go to Account Settings → Security
+3. Create Personal Access Token (PAT)
+4. Copy and paste to `.env`
 
 ### 3. Run Mastra Development Server
 
@@ -94,6 +98,8 @@ src/
 
 **Purpose:** Automatically curate the best photos from a gallery
 
+**Model:** Clarifai Claude Opus 4.5 (`clarifai/anthropic/completion/models/claude-opus-4_5`)
+
 **Capabilities:**
 - Analyze photo quality (lighting, composition, focus)
 - Detect and reject problematic photos (blurry, eyes closed)
@@ -109,6 +115,72 @@ const result = await mastra.agents['photo-curator'].generate({
     role: 'user',
     content: 'Curate the best 40 photos from gallery_abc123'
   }]
+});
+```
+
+---
+
+## 🎯 Model Configuration
+
+### Using Clarifai with Claude Opus 4.5 (Recommended)
+
+**Model ID:** `clarifai/anthropic/completion/models/claude-opus-4_5`
+
+**Configuration:**
+```typescript
+// src/mastra/agents/photo-curator.ts
+import { Agent } from '@mastra/core/agent';
+
+export const photoCurationAgent = new Agent({
+  name: 'photo-curator',
+  instructions: 'You are an expert photography curator...',
+  model: 'clarifai/anthropic/completion/models/claude-opus-4_5',
+  options: {
+    temperature: 0.7,
+    maxTokens: 4096,
+  },
+});
+```
+
+**Environment Variable:**
+```env
+CLARIFAI_PAT=your-personal-access-token
+```
+
+**Base URL:** `https://api.clarifai.com/v2/ext/openai/v1`
+
+### Available Clarifai Models
+
+| Model | Model ID | Context | Use Case |
+|-------|----------|---------|----------|
+| **Claude Opus 4.5** | `clarifai/anthropic/completion/models/claude-opus-4_5` | 200K | Best for complex tasks, photo curation |
+| Claude Opus 4 | `clarifai/anthropic/completion/models/claude-opus-4` | 200K | High-end reasoning |
+| Claude 3.5 Sonnet | `clarifai/anthropic/completion/models/claude-3-5-sonnet` | 200K | Balanced performance |
+| GPT-4o | `clarifai/openai/chat-completion/models/gpt-4o` | 128K | Alternative option |
+
+**To switch models**, simply change the `model` property in your agent:
+```typescript
+model: 'clarifai/anthropic/completion/models/claude-3-5-sonnet' // Different model
+```
+
+### Custom Model Configuration (Advanced)
+
+For full control over provider settings:
+
+```typescript
+import { Agent } from '@mastra/core/agent';
+
+const agent = new Agent({
+  name: 'custom-agent',
+  instructions: '...',
+  model: {
+    url: 'https://api.clarifai.com/v2/ext/openai/v1',
+    id: 'clarifai/anthropic/completion/models/claude-opus-4_5',
+    apiKey: process.env.CLARIFAI_PAT,
+    headers: {
+      'X-Custom-Header': 'value'
+    }
+  },
 });
 ```
 
