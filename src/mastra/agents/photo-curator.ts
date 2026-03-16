@@ -13,20 +13,17 @@ Your role:
 Always provide constructive feedback and explanations for your selections.`,
   
   // Using Clarifai with Claude Opus 4.5
+  // Model format: Full Clarifai URL with version for specific model version
   model: 'clarifai/anthropic/completion/models/claude-opus-4_5',
   
-  // Optional: Custom model configuration with advanced settings
-  // model: {
-  //   url: 'https://api.clarifai.com/v2/ext/openai/v1',
-  //   id: 'clarifai/anthropic/completion/models/claude-opus-4_5',
-  //   apiKey: process.env.CLARIFAI_PAT,
-  // },
+  // Alternative: Use specific version (uncomment if you want to pin to exact version)
+  // model: 'https://clarifai.com/anthropic/completion/models/claude-opus-4_5/versions/ee363bb3e6d3485ab0034bc454b41c52',
   
   tools: [
     // Add tools here (e.g., Cloudinary tool for photo access)
   ],
   
-  // Optional: Model options
+  // Model options
   options: {
     temperature: 0.7,
     maxTokens: 4096,
