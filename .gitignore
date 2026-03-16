@@ -82,3 +82,6 @@ backups/
 # Prisma backups
 prisma/schema.backup*.prisma
 prisma/migrations.backup/
+
+# Environment documentation (contains sensitive credentials)
+ENV_SETUP.md
